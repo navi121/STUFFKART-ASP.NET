@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file is used by the publish/package process of your Web project. You can customize the behavior of this process
+by editing this MSBuild file. In order to learn more about this please visit https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TimeStampOfAssociatedLegacyPublishXmlFile />
+    <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAD3jnYdVzmU+D+gFgyZ9lPQAAAAACAAAAAAAQZgAAAAEAACAAAADiepBJdKSo34h5Rb/Uk1TiWMTwN6jPOuhuyXucSCMuJAAAAAAOgAAAAAIAACAAAABxK2WzGl34SjGdHLeWK2bTHSKy63jDRULs0jZBrVMsP1AAAADQkG6QdpRsGjxXNBrDzEgAIYHnl1GTgEI6N1TbSHLjuEK0sUcuqmx8e821aOsEsJmxFvwsaAcv4WhjxFe9dDAxpTnN5G3uSkIZNzQpSapdLUAAAAA6gKlbfumPkt5tgW2VYxsdLaEbXxLyrbyDWjFoR01y3v4FS9xJrxOKwDcuUx+4Y+FG4NKnt6/fZRLWKamD4vf6</EncryptedPassword>
+    <History>False|2022-01-19T11:08:39.2517233Z;True|2022-01-18T19:54:16.1966130+05:30;</History>
+  </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="BloggingDatabase">
+      <Value>Server=localhost%3bDatabase=StuffKart%3bUser ID=sa%3bpassword=World%40#2021%3b</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
+  <ItemGroup>
+    <EFMigrations Include="StuffKartProject.Models.StuffKartContext">
+      <Value>Server=localhost%3bDatabase=StuffKart%3bUser ID=sa%3bpassword=World%40#2021%3b</Value>
+    </EFMigrations>
+  </ItemGroup>
+</Project>
