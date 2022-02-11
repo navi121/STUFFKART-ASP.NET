@@ -14,7 +14,6 @@ using StuffKartProject.Services.Interfaces;
 
 namespace StuffKartProject.Controllers
 {
-
   [ApiController]
   public class GetOrderDetailsController : ControllerBase
   {

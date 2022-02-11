@@ -42,7 +42,7 @@ namespace StuffKartTests.Controllers
     }
 
     [Fact]
-    public async Task Given_InValid_Credentials_ResetPassword_Returns400_Badrequest()
+    public async Task Given_InValid_Credentials_ResetPassword_Returns401_UnAuthorized()
     {
       //Arrange
       var loginRequest = _fixture.Create<ResetPassword>();
@@ -50,6 +50,21 @@ namespace StuffKartTests.Controllers
 
       //Act
       _resetPasswordService.Setup(x => x.ValidateUserAsync(MobileNumber, loginRequest)).ReturnsAsync(false);
+      var result = await _controller.ResetPassword(MobileNumber, loginRequest) as UnauthorizedResult;
+
+      //Assert
+      result.StatusCode.Should().Be(StatusCodes.Status401Unauthorized);
+    }
+
+    [Fact]
+    public async Task Given_InValid_Credentials_ResetPassword_Returns400_Badrequest()
+    {
+      //Arrange
+      var loginRequest = _fixture.Create<ResetPassword>();
+      var MobileNumber = loginRequest.MobileNumber;
+      loginRequest.Email = "";
+
+      //Act
       var result = await _controller.ResetPassword(MobileNumber, loginRequest) as BadRequestResult;
 
       //Assert

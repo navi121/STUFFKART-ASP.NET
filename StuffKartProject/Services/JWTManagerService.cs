@@ -1,6 +1,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using StuffKartProject.Models;
+using StuffKartProject.Services.Interfaces;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -8,13 +9,13 @@ using System.Text;
 
 namespace StuffKartProject.Services
 {
-  public class JWTManagerService
+  public class JWTManagerService : IJWTManagerService
   {
+    public IConfiguration Configuration { get; }
     public JWTManagerService(IConfiguration configuration)
     {
       Configuration = configuration;
-    }
-    public IConfiguration Configuration { get; }
+    }    
 
     public string Authenticate(UserDetails loginRequest)
     {

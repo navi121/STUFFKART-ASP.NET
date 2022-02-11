@@ -1,0 +1,21 @@
+
+{
+    "region" : "us-east-1",
+    "configuration" : "Debug",
+    "framework"     : "net5.0",
+    "self-contained" : false,
+    "application"    : "StuffKartProject",
+    "environment"    : "StuffKartProject-dev",
+    "app-path"       : "/",
+    "iis-website"    : "Default Web Site",
+    "enable-xray"    : false,
+    "enhanced-health-type" : "basic",
+    "additional-options"   : "\"aws:autoscaling:launchconfiguration,SecurityGroups\"=\"sg-09e8fdd4e2f5124be,sg-00968e662487988bb\";\"aws:ec2:vpc,Subnets\"=\"subnet-02ca46288054a8ba8\"",
+    "solution-stack"       : "64bit Windows Server Core 2016 v2.8.2 running IIS 10.0",
+    "environment-type"     : "SingleInstance",
+    "cname"                : "stuffkartproject-dev",
+    "instance-type"        : "t1.micro",
+    "key-pair"             : "Key",
+    "instance-profile"     : "aws-elasticbeanstalk-ec2-role",
+    "service-role"         : "aws-elasticbeanstalk-service-role"
+}

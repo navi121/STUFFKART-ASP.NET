@@ -31,7 +31,7 @@ namespace StuffKartProject
     {
 
       string connectionString = Configuration.GetConnectionString("BloggingDatabase");
-      services.AddDbContext<StuffKartContext>(options => options.UseSqlServer(connectionString));
+      services.AddDbContext<StuffKartContext>(optionsBuilder => optionsBuilder.UseSqlServer(connectionString));
 
       string secretKey = Configuration.GetSection("Jwt:Key").Value;
 
@@ -50,7 +50,7 @@ namespace StuffKartProject
               jwtconfig.TokenValidationParameters = jwttokenparams);
 
 
-      services.AddDbContext<StuffKartContext>();
+      services.AddDbContext<StuffKartProject.Models.StuffKartContext>();
       services.AddScoped<IForgetPasswordService, ForgetPasswordService>();
       services.AddScoped<IFileUploadService, FileUploadService>();
       services.AddScoped<IUserLoginService, UserLoginService>();
@@ -67,7 +67,8 @@ namespace StuffKartProject
       services.AddScoped<IGetCartDetailsService, GetCartDetailsService>();
       services.AddScoped<IUserDetailService, UserDetailService>();
       services.AddScoped<IGetUserDetailService, GetUserDetailService>();
-      services.AddSingleton<JWTManagerService>();
+      services.AddScoped<IDeleteCartDetailService, DeleteCartDetailService>();
+      services.AddSingleton<IJWTManagerService, JWTManagerService>();
       services.AddControllers();
       services.AddSwaggerGen(c =>
       {
@@ -81,11 +82,12 @@ namespace StuffKartProject
       if (env.IsDevelopment())
       {
         app.UseDeveloperExceptionPage();
-        app.UseSwagger();
+        app.UseSwagger(); 
         app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "StuffKartProject v1"));
       }
       app.UseCors(options =>
-      options.WithOrigins("http://localhost:4200")
+      options.AllowCredentials()
+      .SetIsOriginAllowed(origin => true)
       .AllowAnyMethod()
       .AllowAnyHeader());
 

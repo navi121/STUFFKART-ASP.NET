@@ -26,6 +26,8 @@ namespace StuffKartProject.Services
     {
       var userDetail =await _context.UserDetails.Where(x => x.Email == email).ToListAsync();
 
+      _logger.LogInformation("returning User details");
+
       return userDetail;
     }
   }

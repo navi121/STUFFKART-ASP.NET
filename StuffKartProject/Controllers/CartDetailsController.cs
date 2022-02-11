@@ -26,6 +26,7 @@ namespace StuffKartProject.Controllers
     }
     
     [HttpPost("AddCartDetails/{user}")]
+    [Authorize]
     public async Task<IActionResult> AddCartDetail(string user,CartDetail cartDetail)
     {
       try
@@ -51,30 +52,6 @@ namespace StuffKartProject.Controllers
       }
     }
 
-    [HttpPost("DeleteProducts/{user}")]
-    public async Task<IActionResult> DeleteCartDetail(string user,CartDetail product)
-    {
-      try
-      {
-        var requestResult = await _cartDetailsService.DeleteCartDetails(user,product);
-        _logger.LogInformation("Getting CartDetails List");
-
-        if (requestResult == false)
-        {
-          _logger.LogWarning("Received Invalid CartDetails");
-
-          return BadRequest();
-        }
-        _logger.LogInformation("Susscesfully added CartDetails");
-
-        return Ok();
-      }
-      catch (Exception ex)
-      {
-        _logger.LogError("Received Exception Error while running");
-
-        return StatusCode(StatusCodes.Status500InternalServerError, new { ex.Message, Type = ex.GetType().ToString() });
-      }
-    }
+    
   }
 }

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -25,6 +26,7 @@ namespace StuffKartProject.Controllers
     }
 
     [HttpPost("PlaceOrder/{userId}")]
+    [Authorize]
     public async Task<IActionResult> AddOrdersDetail(string userId, List<OrderDetails> orderDetails)
     {
       try

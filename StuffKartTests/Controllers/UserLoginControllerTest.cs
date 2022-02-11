@@ -27,46 +27,60 @@ namespace StuffKartTests.Controllers
     }
 
     [Fact]
-    public async Task Given_ValidDetails_IsValid_Returns200OK()
+    public void Given_ValidDetails_IsValid_Returns200OK()
     {
       //arrange
       var request = _fixture.Create<UserDetails>();
 
       //act
-      _loginService.Setup(x => x.ValidateUserAsync(request)).ReturnsAsync(true);
+      _loginService.Setup(x => x.ValidateUserAsync(request)).Returns("token");
 
-      var result = await _controller.UserLoginAsync(request) as OkResult;
+      var result = _controller.UserLoginAsync(request) as OkObjectResult;
 
       //assert
       result.StatusCode.Should().Be(StatusCodes.Status200OK);
     }
 
     [Fact]
-    public async Task Given_ValidDetails_IsInValid_Returns400_BadRequest()
+    public void Given_ValidDetails_IsInValid_Returns401_UnAuthorized()
     {
       //arrange
       var request = _fixture.Create<UserDetails>();
 
       //act
-      _loginService.Setup(x => x.ValidateUserAsync(request)).ReturnsAsync(false);
+      _loginService.Setup(x => x.ValidateUserAsync(request));
 
-      var result = await _controller.UserLoginAsync(request) as BadRequestResult;
+      var result = _controller.UserLoginAsync(request) as UnauthorizedResult;
+
+      //assert
+      result.StatusCode.Should().Be(StatusCodes.Status401Unauthorized);
+    }
+
+    [Fact]
+    public void Given_ValidDetails_IsInValid_Returns400_BadRequest()
+    {
+      //arrange
+      var request = _fixture.Create<UserDetails>();
+      request.Email = "";
+
+      //act
+      var result = _controller.UserLoginAsync(request) as BadRequestResult;
 
       //assert
       result.StatusCode.Should().Be(StatusCodes.Status400BadRequest);
     }
 
     [Fact]
-    public async Task Given_ValidDetails_IsInValid_Returns500_Internal_ServerError()
+    public void Given_ValidDetails_IsInValid_Returns500_Internal_ServerError()
     {
       //arrange
       var request = _fixture.Create<UserDetails>();
       var errorMessage = _fixture.Create<string>();
 
       //act
-      _loginService.Setup(x => x.ValidateUserAsync(request)).ThrowsAsync(new Exception(errorMessage));
+      _loginService.Setup(x => x.ValidateUserAsync(request)).Throws(new Exception(errorMessage));
 
-      var result = await _controller.UserLoginAsync(request) as ObjectResult;
+      var result = _controller.UserLoginAsync(request) as ObjectResult;
 
       //assert
       result.StatusCode.Should().Be(StatusCodes.Status500InternalServerError);

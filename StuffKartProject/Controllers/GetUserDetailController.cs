@@ -26,16 +26,28 @@ namespace StuffKartProject.Controllers
     }
 
     [HttpGet("GetUserDetail/{userEmail}")]
+    [Authorize]
     public async Task<IActionResult> getUserDetail(string userEmail)
     {
-      var userDetail = await _getUserDetailsService.getUser(userEmail);
-
-      if(userDetail == null)
+      try
       {
-        return BadRequest();
+        var userDetail = await _getUserDetailsService.getUser(userEmail);
+
+        if (userDetail.Count() == 0)
+        {
+          return BadRequest();
+        }
+
+        return Ok(userDetail);
       }
 
-      return Ok(userDetail);
+      catch(Exception ex)
+      {
+        _logger.LogError("Received Exception Error while running");
+
+        return StatusCode(StatusCodes.Status500InternalServerError, new { ex.Message, Type = ex.GetType().ToString() });
+      }
+      
     }
 
   }

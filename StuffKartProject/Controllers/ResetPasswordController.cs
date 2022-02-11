@@ -24,13 +24,13 @@ namespace StuffKartProject.Controllers
     [HttpPut("UserResetPassword/{MobileNumber}")]
     public async Task<IActionResult> ResetPassword([FromRoute] long MobileNumber, [FromBody] ResetPassword request)
     {
-      if (!ModelState.IsValid)
-      {
-        return BadRequest();
-      }
       try
       {
         _logger.LogInformation("Receiving User Request");
+        if (string.IsNullOrEmpty(request.Email) || string.IsNullOrEmpty(request.Password))
+        {
+          return BadRequest();
+        }
 
         var resetStatus = await _resetPasswordService.ValidateUserAsync(MobileNumber,request);
         if (resetStatus == false)

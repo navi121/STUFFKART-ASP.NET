@@ -146,3 +146,4 @@ C:\Users\NaveenNatarajan\source\repos\StuffKartProject\StuffKartProject\obj\Debu
 C:\Users\NaveenNatarajan\source\repos\StuffKartProject\StuffKartProject\obj\Debug\net5.0\ref\StuffKartProject.dll
 C:\Users\NaveenNatarajan\source\repos\StuffKartProject\StuffKartProject\obj\Debug\net5.0\StuffKartProject.pdb
 C:\Users\NaveenNatarajan\source\repos\StuffKartProject\StuffKartProject\obj\Debug\net5.0\StuffKartProject.genruntimeconfig.cache
+C:\Users\NaveenNatarajan\source\repos\StuffKartProject\StuffKartProject\bin\Debug\net5.0\aws-beanstalk-tools-defaults.json

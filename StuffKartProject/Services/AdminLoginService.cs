@@ -16,9 +16,9 @@ namespace StuffKartProject.Services
   {
     private readonly StuffKartContext _context;
     private readonly ILogger _logger;
-    private readonly JWTManagerService _tokenKey;
+    private readonly IJWTManagerService _tokenKey;
 
-    public AdminLoginService(StuffKartContext context, ILogger<AdminLoginService> logger, JWTManagerService tokenKey)
+    public AdminLoginService(StuffKartContext context, ILogger<AdminLoginService> logger, IJWTManagerService tokenKey)
     {
       _logger = logger;
       _context = context;

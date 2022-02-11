@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -25,6 +26,7 @@ namespace StuffKartProject.Controllers
     }
 
     [HttpPost("UploadImage/{id}")]
+    [Authorize]
     public IActionResult UploadImage(int id, List<IFormFile> files)
     {
       _logger.LogInformation("Receiving Product ID and Image");

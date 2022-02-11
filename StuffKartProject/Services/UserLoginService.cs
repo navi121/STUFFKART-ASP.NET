@@ -12,8 +12,8 @@ namespace StuffKartProject.Services
   {
     private readonly StuffKartContext _context;
     private readonly ILogger _logger;
-    private readonly JWTManagerService _tokenKey;
-    public UserLoginService(StuffKartContext context, ILogger<UserLoginService> logger, JWTManagerService tokenKey)
+    private readonly IJWTManagerService _tokenKey;
+    public UserLoginService(StuffKartContext context, ILogger<UserLoginService> logger, IJWTManagerService tokenKey)
     {
       _context = context;
       _logger = logger;
@@ -23,12 +23,15 @@ namespace StuffKartProject.Services
     {
       var userExists = _context.UserDetails.Where(m => m.Email == loginRequest.Email && m.Password == loginRequest.Password).FirstOrDefault();
       _logger.LogInformation("Retruning user is Valid or Not");
+
       if (userExists == null)
       {
         return null;
       }
 
       var token = _tokenKey.Authenticate(userExists);
+
+      _logger.LogInformation("Returning token");
 
       return token;
     }

@@ -3,6 +3,7 @@ using FluentAssertions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Moq;
 using StuffKartProject.Controllers;
 using StuffKartProject.Models;
@@ -17,34 +18,57 @@ namespace StuffKartTests.Controllers
 {
   public class UserDetailsControllerTest
   {
-    private readonly Fixture _fixture = new Fixture();
+    private readonly Mock<IUserDetailService> _userDetailService;
     private readonly UserDetailsController _controller;
-    private readonly StuffKartContext _context;
+    private readonly Fixture _fixture = new Fixture();
     public UserDetailsControllerTest()
     {
-      _context = new StuffKartContext();
-      _controller = new UserDetailsController(_context);
+      _userDetailService = new Mock<IUserDetailService>();
+      var _logger = new Mock<ILogger<UserDetailsController>>();
+      _controller = new UserDetailsController(_userDetailService.Object, _logger.Object);
     }
+
     [Fact]
     public async Task Get_All_The_ValuesIn_UserDetails()
     {
-      var result = _controller.GetUserDetails() as List<UserDetails>;
-      Assert.Equal(_context.UserDetails, result);
+      //arrange
+      var request = _fixture.Create<UserDetails>();
+
+      //act
+      _userDetailService.Setup(x => x.UpdateUser(request)).ReturnsAsync(true);
+      var result = await _controller.UserDetailsUpdate(request) as OkResult;
+
+      //assert
+      result.StatusCode.Should().Be(StatusCodes.Status200OK);
     }
+
     [Fact]
     public async Task Delete_Valid_UserDetail_Will_Returns200OK()
     {
-      var userRequest = 100;
-      var result =await _controller.DeleteUserDetail(userRequest) as OkResult;
-      result.StatusCode.Should().Be(StatusCodes.Status200OK);
+      //arrange
+      var request = _fixture.Create<UserDetails>();
+
+      //act
+      _userDetailService.Setup(x => x.UpdateUser(request)).ReturnsAsync(false);
+      var result = await _controller.UserDetailsUpdate(request) as BadRequestResult;
+
+      //assert
+      result.StatusCode.Should().Be(StatusCodes.Status400BadRequest);
     }
 
     [Fact]
     public async Task Delete_InValid_UserDetail_Will_Returns404NotFound()
     {
-      var userRequest = 4567;
-      var result = await _controller.DeleteUserDetail(userRequest) as NotFoundResult;
-      result.StatusCode.Should().Be(StatusCodes.Status404NotFound);
+      //arrange
+      var request = _fixture.Create<UserDetails>();
+      var errorMessage = _fixture.Create<string>();
+
+      //act
+      _userDetailService.Setup(x => x.UpdateUser(request)).ThrowsAsync(new Exception(errorMessage));
+      var result = await _controller.UserDetailsUpdate(request) as ObjectResult;
+
+      //assert
+      result.StatusCode.Should().Be(StatusCodes.Status500InternalServerError);
     }
   }
 }
