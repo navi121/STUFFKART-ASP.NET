@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using StuffKartProject.Models;
+using StuffKartProject.Resources;
 using StuffKartProject.Services.Interfaces;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -18,6 +18,10 @@ namespace StuffKartProject.Services
     }
     public async Task<IEnumerable<UploadProducts>> DivideCategory(string categoryName)
     {
+      if(categoryName == WebResource.All)
+      {
+        return await _context.Products.ToListAsync();
+      }
       var categorySearch =await _context.Products.Where(m => m.Category == categoryName).ToListAsync();
 
       return categorySearch;

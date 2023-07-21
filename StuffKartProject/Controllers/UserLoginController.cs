@@ -1,11 +1,9 @@
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using StuffKartProject.Models;
 using StuffKartProject.Services.Interfaces;
 using System;
-using System.Threading.Tasks;
 
 namespace StuffKartProject.Controllers
 {

@@ -233,3 +233,4 @@ C:\Users\NaveenNatarajan\source\repos\StuffKartProject\StuffKart.AcceptanceTests
 C:\Users\NaveenNatarajan\source\repos\StuffKartProject\StuffKart.AcceptanceTests\bin\Debug\net5.0\Fare.dll
 C:\Users\NaveenNatarajan\source\repos\StuffKartProject\StuffKart.AcceptanceTests\bin\Debug\net5.0\FluentAssertions.dll
 C:\Users\NaveenNatarajan\source\repos\StuffKartProject\StuffKart.AcceptanceTests\bin\Debug\net5.0\Moq.dll
+C:\Users\NaveenNatarajan\source\repos\StuffKartProject\StuffKart.AcceptanceTests\bin\Debug\net5.0\aws-beanstalk-tools-defaults.json

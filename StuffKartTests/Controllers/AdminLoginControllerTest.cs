@@ -26,33 +26,49 @@ namespace StuffKartTests.Controllers
       _controller = new AdminLoginController(_adminLoginService.Object, _logger.Object);
     }
     [Fact]
-    public async Task Given_Admin_ValidDetails_IsValid_Returns200OK()
+    public void Given_Admin_ValidDetails_IsValid_Returns200OK()
     {
       //arrange
       var request = _fixture.Create<UserDetails>();
 
       //act
-      _adminLoginService.Setup(x => x.ValidateAdminUserAsync(request)).ReturnsAsync(true);
+      _adminLoginService.Setup(x => x.ValidateAdminUserAsync(request)).Returns("token");
 
-      var result = await _controller.AdminUserLoginAsync(request) as OkResult;
+      var result = _controller.AdminUserLoginAsync(request) as OkObjectResult;
 
       //assert
       result.StatusCode.Should().Be(StatusCodes.Status200OK);
     }
 
     [Fact]
-    public async Task Given_ValidDetails_IsInValid_Admin_Returns400_BadRequest()
+    public void Given_ValidDetails_IsInValid_Admin_Returns401_UnAuthorized()
     {
       //arrange
       var request = _fixture.Create<UserDetails>();
 
       //act
-      _adminLoginService.Setup(x => x.ValidateAdminUserAsync(request)).ReturnsAsync(false);
+      _adminLoginService.Setup(x => x.ValidateAdminUserAsync(request));
 
-      var result = await _controller.AdminUserLoginAsync(request) as UnauthorizedResult;
+      var result = _controller.AdminUserLoginAsync(request) as UnauthorizedResult;
 
       //assert
       result.StatusCode.Should().Be(StatusCodes.Status401Unauthorized);
+    }
+
+    [Fact]
+    public void Given_ValidDetails_IsInValid_Admin_Returns400_badRequest()
+    {
+      //arrange
+      var request = _fixture.Create<UserDetails>();
+      request.Email = "";
+
+      //act
+      _adminLoginService.Setup(x => x.ValidateAdminUserAsync(request));
+
+      var result = _controller.AdminUserLoginAsync(request) as BadRequestResult;
+
+      //assert
+      result.StatusCode.Should().Be(StatusCodes.Status400BadRequest);
     }
 
     [Fact]
@@ -63,9 +79,9 @@ namespace StuffKartTests.Controllers
       var errorMessage = _fixture.Create<string>();
 
       //act
-      _adminLoginService.Setup(x => x.ValidateAdminUserAsync(request)).ThrowsAsync(new Exception(errorMessage));
+      _adminLoginService.Setup(x => x.ValidateAdminUserAsync(request)).Throws(new Exception(errorMessage));
 
-      var result = await _controller.AdminUserLoginAsync(request) as ObjectResult;
+      var result =  _controller.AdminUserLoginAsync(request) as ObjectResult;
 
       //assert
       result.StatusCode.Should().Be(StatusCodes.Status500InternalServerError);

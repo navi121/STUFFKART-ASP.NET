@@ -1,15 +1,10 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using StuffKartProject.Constant;
-using StuffKartProject.Models;
 using StuffKartProject.Services.Interfaces;
 
 namespace StuffKartProject.Controllers
@@ -26,17 +21,27 @@ namespace StuffKartProject.Controllers
     }
 
     [HttpGet("GetUserDetail/{userEmail}")]
+    [Authorize]
     public async Task<IActionResult> getUserDetail(string userEmail)
     {
-      var userDetail = await _getUserDetailsService.getUser(userEmail);
-
-      if(userDetail == null)
+      try
       {
-        return BadRequest();
+        var userDetail = await _getUserDetailsService.getUser(userEmail);
+
+        if (userDetail.Count() == 0)
+        {
+          return BadRequest();
+        }
+
+        return Ok(userDetail);
       }
 
-      return Ok(userDetail);
-    }
+      catch(Exception ex)
+      {
+        _logger.LogError("Received Exception Error while running");
 
+        return StatusCode(StatusCodes.Status500InternalServerError, new { ex.Message, Type = ex.GetType().ToString() });
+      }      
+    }
   }
 }

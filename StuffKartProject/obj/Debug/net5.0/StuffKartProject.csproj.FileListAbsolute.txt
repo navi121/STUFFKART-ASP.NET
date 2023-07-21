@@ -5,7 +5,6 @@ C:\Users\NaveenNatarajan\source\repos\StuffKartProject\StuffKartProject\bin\Debu
 C:\Users\NaveenNatarajan\source\repos\StuffKartProject\StuffKartProject\bin\Debug\net5.0\StuffKartProject.runtimeconfig.json
 C:\Users\NaveenNatarajan\source\repos\StuffKartProject\StuffKartProject\bin\Debug\net5.0\StuffKartProject.runtimeconfig.dev.json
 C:\Users\NaveenNatarajan\source\repos\StuffKartProject\StuffKartProject\bin\Debug\net5.0\StuffKartProject.dll
-C:\Users\NaveenNatarajan\source\repos\StuffKartProject\StuffKartProject\bin\Debug\net5.0\ref\StuffKartProject.dll
 C:\Users\NaveenNatarajan\source\repos\StuffKartProject\StuffKartProject\bin\Debug\net5.0\StuffKartProject.pdb
 C:\Users\NaveenNatarajan\source\repos\StuffKartProject\StuffKartProject\bin\Debug\net5.0\Humanizer.dll
 C:\Users\NaveenNatarajan\source\repos\StuffKartProject\StuffKartProject\bin\Debug\net5.0\System.Web.Cors.dll
@@ -138,7 +137,6 @@ C:\Users\NaveenNatarajan\source\repos\StuffKartProject\StuffKartProject\obj\Debu
 C:\Users\NaveenNatarajan\source\repos\StuffKartProject\StuffKartProject\obj\Debug\net5.0\StuffKartProject.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\NaveenNatarajan\source\repos\StuffKartProject\StuffKartProject\obj\Debug\net5.0\StuffKartProject.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\NaveenNatarajan\source\repos\StuffKartProject\StuffKartProject\obj\Debug\net5.0\staticwebassets\StuffKartProject.StaticWebAssets.Manifest.cache
-C:\Users\NaveenNatarajan\source\repos\StuffKartProject\StuffKartProject\obj\Debug\net5.0\staticwebassets\StuffKartProject.StaticWebAssets.xml
 C:\Users\NaveenNatarajan\source\repos\StuffKartProject\StuffKartProject\obj\Debug\net5.0\scopedcss\bundle\StuffKartProject.styles.css
 C:\Users\NaveenNatarajan\source\repos\StuffKartProject\StuffKartProject\obj\Debug\net5.0\StuffKartProject.RazorTargetAssemblyInfo.cache
 C:\Users\NaveenNatarajan\source\repos\StuffKartProject\StuffKartProject\obj\Debug\net5.0\StuffKartProject.csproj.CopyComplete
@@ -146,3 +144,10 @@ C:\Users\NaveenNatarajan\source\repos\StuffKartProject\StuffKartProject\obj\Debu
 C:\Users\NaveenNatarajan\source\repos\StuffKartProject\StuffKartProject\obj\Debug\net5.0\ref\StuffKartProject.dll
 C:\Users\NaveenNatarajan\source\repos\StuffKartProject\StuffKartProject\obj\Debug\net5.0\StuffKartProject.pdb
 C:\Users\NaveenNatarajan\source\repos\StuffKartProject\StuffKartProject\obj\Debug\net5.0\StuffKartProject.genruntimeconfig.cache
+C:\Users\NaveenNatarajan\source\repos\StuffKartProject\StuffKartProject\bin\Debug\net5.0\aws-beanstalk-tools-defaults.json
+C:\Users\NaveenNatarajan\source\repos\StuffKartProject\StuffKartProject\obj\Debug\net5.0\staticwebassets\StuffKartProject.StaticWebAssets.Pack.cache
+C:\Users\NaveenNatarajan\source\repos\StuffKartProject\StuffKartProject\obj\Debug\net5.0\staticwebassets\msbuild.StuffKartProject.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\NaveenNatarajan\source\repos\StuffKartProject\StuffKartProject\obj\Debug\net5.0\staticwebassets\msbuild.build.StuffKartProject.props
+C:\Users\NaveenNatarajan\source\repos\StuffKartProject\StuffKartProject\obj\Debug\net5.0\staticwebassets\msbuild.buildMultiTargeting.StuffKartProject.props
+C:\Users\NaveenNatarajan\source\repos\StuffKartProject\StuffKartProject\obj\Debug\net5.0\staticwebassets\msbuild.buildTransitive.StuffKartProject.props
+C:\Users\NaveenNatarajan\source\repos\StuffKartProject\StuffKartProject\obj\Debug\net5.0\refint\StuffKartProject.dll

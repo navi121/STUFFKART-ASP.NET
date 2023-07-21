@@ -5,7 +5,6 @@ using StuffKartProject.Constant;
 using StuffKartProject.Models;
 using StuffKartProject.Services.Interfaces;
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace StuffKartProject.Controllers

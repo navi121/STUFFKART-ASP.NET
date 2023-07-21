@@ -10,14 +10,13 @@ namespace StuffKartProject.Models
     {
 
     }
+    public StuffKartContext(DbContextOptions options): base(options) { }
     public virtual DbSet<CartDetail> CartDetails { get; set; }
     public virtual DbSet<UserDetails> UserDetails { get; set; }
     public virtual DbSet<UploadProducts> Products { get; set; }
     public virtual DbSet<ImageUpload> ImageUploads { get; set; }
     public virtual DbSet<OrderDetails> Orders { get; set; }
-
-    public StuffKartContext(DbContextOptions<StuffKartContext> options): base(options) { }
-
+    
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
       modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");

@@ -1,8 +1,10 @@
 using AutoFixture;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Moq;
 using StuffKartProject.Models;
 using StuffKartProject.Services;
+using System;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -10,41 +12,53 @@ namespace StuffKartTests
 {
   public class ForgetPasswordServiceTest
   {
-    private readonly StuffKartContext _mockContext;
-    private readonly ForgetPasswordService _checkSecurityAnswerService;
-    private readonly Fixture _fixture = new Fixture();
+    private readonly StuffKartContext context;
+    private readonly Fixture _fixture = new();
+    private readonly Mock<ILogger<ForgetPasswordService>> _logger;
     public ForgetPasswordServiceTest()
     {
-      _mockContext = new StuffKartContext();
-      var _logger = new Mock<ILogger<ForgetPasswordService>>();
-      _checkSecurityAnswerService = new ForgetPasswordService(_mockContext, _logger.Object);
+      DbContextOptionsBuilder dboptions = new DbContextOptionsBuilder<StuffKartContext>()
+          .UseInMemoryDatabase(Guid.NewGuid().ToString());
+      context = new StuffKartContext(dboptions.Options);
+      _logger = new Mock<ILogger<ForgetPasswordService>>();
     }
 
     [Fact]
-    public async Task Given_Valid_CheckSecurity_Answer_Returns200Ok()
+    public async Task Given_Valid_CheckSecurity_Answer_Returns_True()
     {
       //Arrange
-      var checkSecurityRequest = _fixture.Create<UserDetails>();
-      checkSecurityRequest.Email = "naveenchpt@gmail.com";
+      var checkSecurityRequest = fixtureUserDetail();
+      context.UserDetails.Add(checkSecurityRequest);
+      await context.SaveChangesAsync();
+      var service = new ForgetPasswordService(context,_logger.Object);
 
       //Act
-      var result = await _checkSecurityAnswerService.CheckUserEmail(checkSecurityRequest);
+      var result = await service.CheckUserEmail(checkSecurityRequest);
 
       //Assert
       Assert.True(result);
     }
 
     [Fact]
-    public async Task Given_InValid_Email_Login_Returns400BadRequest()
+    public async Task Given_InValid_Email_Login_Returns_False()
     {
       //Arrange
-      var checkSecurityRequest = _fixture.Create<UserDetails>();
+      var checkSecurityRequest = fixtureUserDetail();
+      var userGivenWrongDetail = fixtureUserDetail();
+      context.UserDetails.Add(checkSecurityRequest);
+      await context.SaveChangesAsync();
+      var service = new ForgetPasswordService(context, _logger.Object);
 
       //Act
-      var result = await _checkSecurityAnswerService.CheckUserEmail(checkSecurityRequest);
+      var result = await service.CheckUserEmail(userGivenWrongDetail);
 
       //Assert
       Assert.False(result);
+    }
+
+    private UserDetails fixtureUserDetail()
+    {
+      return _fixture.Create<UserDetails>();
     }
   }
 }

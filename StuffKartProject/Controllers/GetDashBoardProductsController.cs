@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -31,7 +30,7 @@ namespace StuffKartProject.Controllers
       {
         var getProductsDetails = _context.Products.ToList();
 
-        if(getProductsDetails == null)
+        if(getProductsDetails.Count == 0)
         {
           _logger.LogWarning("There is no Products in DB returning NoContent Error");
 

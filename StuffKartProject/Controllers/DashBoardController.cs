@@ -1,17 +1,13 @@
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using StuffKartProject.Models;
 using StuffKartProject.Services.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace StuffKartProject.Controllers
 {
-
   [Route("AddProduct")]
   [ApiController]
   public class DashBoardController : ControllerBase
@@ -25,6 +21,7 @@ namespace StuffKartProject.Controllers
     }
 
     [HttpPost]
+    [Authorize]
     public async Task<int> AddProductDetail(UploadProducts addproduct)
     {
       try
@@ -34,7 +31,7 @@ namespace StuffKartProject.Controllers
 
         return productId;
       }
-      catch (Exception)
+      catch (Exception)                                    
       {
         _logger.LogWarning("Received Exception Error while running");
 

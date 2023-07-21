@@ -42,7 +42,7 @@ namespace StuffKartTests.Controllers
     }
 
     [Fact]
-    public async Task Given_InValid_Email_Login_Returns400BadRequest()
+    public async Task Given_InValid_Email_Login_Returns401_UnAuthorized()
     {
       //Arrange
       var loginRequest = _fixture.Create<UserDetails>();
@@ -53,6 +53,20 @@ namespace StuffKartTests.Controllers
 
       //Assert
       result.StatusCode.Should().Be(StatusCodes.Status401Unauthorized);
+    }
+
+    [Fact]
+    public async Task Given_InValid_Email_Login_Returns400BadRequest()
+    {
+      //Arrange
+      var loginRequest = _fixture.Create<UserDetails>();
+      loginRequest.Email = "";
+
+      //Act
+      var result = await _controller.ForgetPassword(loginRequest) as BadRequestResult;
+
+      //Assert
+      result.StatusCode.Should().Be(StatusCodes.Status400BadRequest);
     }
 
     [Fact]

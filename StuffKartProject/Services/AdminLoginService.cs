@@ -1,14 +1,8 @@
 using Microsoft.Extensions.Logging;
-using Microsoft.IdentityModel.Tokens;
+using StuffKartProject.Constant;
 using StuffKartProject.Models;
 using StuffKartProject.Services.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StuffKartProject.Services
 {
@@ -16,9 +10,9 @@ namespace StuffKartProject.Services
   {
     private readonly StuffKartContext _context;
     private readonly ILogger _logger;
-    private readonly JWTManagerService _tokenKey;
+    private readonly IJWTManagerService _tokenKey;
 
-    public AdminLoginService(StuffKartContext context, ILogger<AdminLoginService> logger, JWTManagerService tokenKey)
+    public AdminLoginService(StuffKartContext context, ILogger<AdminLoginService> logger, IJWTManagerService tokenKey)
     {
       _logger = logger;
       _context = context;
@@ -31,7 +25,7 @@ namespace StuffKartProject.Services
       var userExists = _context.UserDetails.Where(m => m.Email == loginRequest.Email && m.Password == loginRequest.Password).FirstOrDefault();
       _logger.LogInformation("Retruning user is Valid or Not");
 
-      if (userExists == null || userExists.isAdmin != 1)
+      if (userExists == null || userExists.isAdmin != UserConstant.AdminUser)
       {
         _logger.LogInformation("Checking user is Admin or Not");
 

@@ -1,8 +1,12 @@
 using AutoFixture;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal;
 using Microsoft.Extensions.Logging;
 using Moq;
 using StuffKartProject.Models;
 using StuffKartProject.Services;
+using System;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -10,24 +14,26 @@ namespace StuffKartTests.Services
 {
   public class AddAdminUserServiceTest
   {
-    private readonly StuffKartContext _mockContext;
-    private readonly AddAdminUserService _addAdminUserService;
-    private readonly Fixture _fixture = new Fixture();
+    private readonly StuffKartContext context;
+    private readonly Fixture _fixture = new();
+    private readonly Mock<ILogger<AddAdminUserService>> _logger;
     public AddAdminUserServiceTest()
     {
-      _mockContext = new StuffKartContext();
-      var _logger = new Mock<ILogger<AddAdminUserService>>();
-      _addAdminUserService = new AddAdminUserService(_mockContext, _logger.Object);
+      DbContextOptionsBuilder dboptions = new DbContextOptionsBuilder<StuffKartContext>()
+          .UseInMemoryDatabase(Guid.NewGuid().ToString());
+      context = new StuffKartContext(dboptions.Options);
+      _logger = new Mock<ILogger<AddAdminUserService>>();
     }
+
     [Fact]
     public async Task Given_Valid_User_Details_To_Service_Returns_true()
     {
       //Arrange
-      var userDetailRequest = _fixture.Create<UserDetails>();
-      userDetailRequest.UserId = 0;
+      var service = new AddAdminUserService(context,_logger.Object);
+      var user = fixtureUser();
 
       //Act
-      var result = await _addAdminUserService.AddAdminUser(userDetailRequest);
+      var result = await service.AddAdminUser(user);
 
       //Assert
       Assert.True(result);
@@ -37,14 +43,23 @@ namespace StuffKartTests.Services
     public async Task Given_Invalid_User_Details_To_Service_Returns_false()
     {
       //Arrange
+      var service = new AddAdminUserService(context, _logger.Object);
+      var existingUser = fixtureUser();
+      context.UserDetails.Add(existingUser);
+      await context.SaveChangesAsync();
       var userDetailRequest = _fixture.Create<UserDetails>();
-      userDetailRequest.MobileNumber = 9080;
-
+      userDetailRequest.MobileNumber = existingUser.MobileNumber;
+      
       //Act
-      var result = await _addAdminUserService.AddAdminUser(userDetailRequest);
+      var result = await service.AddAdminUser(userDetailRequest);
 
       //Assert
       Assert.False(result);
+    }
+
+    private UserDetails fixtureUser()
+    {
+      return _fixture.Create<UserDetails>();
     }
   }
 }

@@ -1,12 +1,8 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using StuffKartProject.Models;
 using StuffKartProject.Services.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace StuffKartProject.Controllers
@@ -32,6 +28,7 @@ namespace StuffKartProject.Controllers
 
         return Ok(searchResult);
       }
+
       catch (Exception ex)
       {
         _logger.LogError("Received Exception Error While Running the Code");

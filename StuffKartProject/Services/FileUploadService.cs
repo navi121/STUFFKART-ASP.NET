@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using StuffKartProject.Models;
 using StuffKartProject.Services.Interfaces;
@@ -7,7 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace StuffKartProject.Services
 {
@@ -38,19 +36,19 @@ namespace StuffKartProject.Services
             {
               formFile.CopyTo(ms);
               var img = ms.ToArray();
-              string s = Convert.ToBase64String(img);              
+              string convertedString = Convert.ToBase64String(img);              
               count++;
               if (count == 1)
               {
-                image.Image = s;
+                image.Image = convertedString;
               }
               else if (count == 2)
               {
-                image.Image1 = s;
+                image.Image1 = convertedString;
               }
               else
               {
-                image.Image2 = s;
+                image.Image2 = convertedString;
               }
             }
           }

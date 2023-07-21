@@ -24,7 +24,7 @@ namespace StuffKartTests.Controllers
     }
 
     [Fact]
-    public async Task Add_Valid_DashBoard_Products_Returns200OK()
+    public void Add_Valid_DashBoard_Products_Returns200OK()
     {
       //Arrange
       var dashBoardRequest = _fixture.Create<UploadProducts>();
@@ -39,7 +39,7 @@ namespace StuffKartTests.Controllers
     }
 
     [Fact]
-    public async Task Add_InValid_DashBoard_Products_Returns_500InternalServer_Error()
+    public void Add_InValid_DashBoard_Products_Returns_500InternalServer_Error()
     {
       //Arrange
       var dashBoardRequest = _fixture.Create<UploadProducts>();

@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StuffKartProject", "StuffKa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StuffKartTests", "StuffKartTests\StuffKartTests.csproj", "{E9F517E3-A5FB-44DE-92CC-A44D04AF0D41}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StuffKartProject.AcceptanceTests", "StuffKart.AcceptanceTests\StuffKartProject.AcceptanceTests.csproj", "{027B9C6B-0311-4984-85C1-9E25C0C1E7B0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StuffKartProject.AcceptanceTests", "StuffKart.AcceptanceTests\StuffKartProject.AcceptanceTests.csproj", "{027B9C6B-0311-4984-85C1-9E25C0C1E7B0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

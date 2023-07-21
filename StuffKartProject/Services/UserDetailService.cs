@@ -1,8 +1,6 @@
 using Microsoft.Extensions.Logging;
 using StuffKartProject.Models;
 using StuffKartProject.Services.Interfaces;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -21,7 +19,6 @@ namespace StuffKartProject.Services
 
     public async Task<bool> UpdateUser(UserDetails updateRequest)
     {
-
       var gettingUserDetail = _context.UserDetails.Where(m => m.Email == updateRequest.Email).FirstOrDefault();
 
       if (gettingUserDetail != null)
@@ -33,17 +30,13 @@ namespace StuffKartProject.Services
         gettingUserDetail.SecurityQuestion = updateRequest.SecurityQuestion;
         gettingUserDetail.SecurityAnswer = updateRequest.SecurityAnswer;
 
-
-        //gettingUserDetail = updateRequest;
-
+        _logger.LogInformation("Saved all new user details");
         await _context.SaveChangesAsync();
 
         return true;
       }
 
       return false;
-
-
     }
   }
 }

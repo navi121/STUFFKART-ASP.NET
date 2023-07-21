@@ -232,3 +232,5 @@ C:\Users\NaveenNatarajan\source\repos\StuffKartProject\StuffKartTests\obj\Debug\
 C:\Users\NaveenNatarajan\source\repos\StuffKartProject\StuffKartTests\obj\Debug\net5.0\StuffKartTests.genruntimeconfig.cache
 C:\Users\NaveenNatarajan\source\repos\StuffKartProject\StuffKartTests\bin\Debug\net5.0\NLog.dll
 C:\Users\NaveenNatarajan\source\repos\StuffKartProject\StuffKartTests\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+C:\Users\NaveenNatarajan\source\repos\StuffKartProject\StuffKartTests\bin\Debug\net5.0\aws-beanstalk-tools-defaults.json
+C:\Users\NaveenNatarajan\source\repos\StuffKartProject\StuffKartTests\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.InMemory.dll

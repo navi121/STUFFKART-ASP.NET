@@ -1,8 +1,12 @@
 using AutoFixture;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Moq;
+using StuffKartProject;
 using StuffKartProject.Models;
 using StuffKartProject.Services;
+using StuffKartProject.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,42 +18,57 @@ namespace StuffKartTests.Services
 {
   public class AdminLoginServiceTest
   {
-    private readonly StuffKartContext _mockContext;
-    private readonly AdminLoginService _adminLoginService;
-    private readonly Fixture _fixture = new Fixture();
+    private readonly StuffKartContext context;
+    private readonly Fixture _fixture = new();
+    private readonly Mock<ILogger<AdminLoginService>> _logger;
+    private readonly Mock<IJWTManagerService> _JWTService = new();
+
     public AdminLoginServiceTest()
     {
-      _mockContext = new StuffKartContext();
-      var _logger = new Mock<ILogger<AdminLoginService>>();
-      _adminLoginService = new AdminLoginService(_mockContext, _logger.Object);
+      DbContextOptionsBuilder dboptions = new DbContextOptionsBuilder<StuffKartContext>()
+          .UseInMemoryDatabase(Guid.NewGuid().ToString());
+      context = new StuffKartContext(dboptions.Options);
+      _logger = new Mock<ILogger<AdminLoginService>>();
     }
 
     [Fact]
-    public async Task Given_Admin_Valid_Credentials_Login_Returns_ture()
+    public async Task Given_Admin_Valid_Credentials_Login_Returns_token()
     {
       //Arrange
-      var userDetailRequest = _fixture.Create<UserDetails>();
-      userDetailRequest.Email = "naveenchpt@gmail.com";
-      userDetailRequest.Password = "nn2000";
+      var adminUser = fixtureUser();
+      adminUser.isAdmin = 1;
+      context.UserDetails.Add(adminUser);
+      await context.SaveChangesAsync();
+      var service = new AdminLoginService(context, _logger.Object,_JWTService.Object);
 
       //Act
-      var result = await _adminLoginService.ValidateAdminUserAsync(userDetailRequest);
+      _JWTService.Setup(x => x.Authenticate(adminUser)).Returns("token");
+      var result = service.ValidateAdminUserAsync(adminUser);
 
       //Assert
-      Assert.True(result);
+      Assert.NotNull(result);
     }
 
     [Fact]
-    public async Task Given_Admin_InValid_Credentials_Login_Returns_false()
+    public async Task Given_Admin_InValid_Credentials_Login_Returns_Null()
     {
       //Arrange
-      var userDetailRequest = _fixture.Create<UserDetails>();
+      var adminUser = fixtureUser();
+      adminUser.isAdmin = 1;
+      context.UserDetails.Add(adminUser);
+      await context.SaveChangesAsync();
+      var service = new AdminLoginService(context, _logger.Object, _JWTService.Object);
 
       //Act
-      var result = await _adminLoginService.ValidateAdminUserAsync(userDetailRequest);
+      var result = service.ValidateAdminUserAsync(adminUser);
 
       //Assert
-      Assert.False(result);
+      Assert.Null(result);
+    }
+
+    private UserDetails fixtureUser()
+    {
+      return _fixture.Create<UserDetails>();
     }
   }
 }

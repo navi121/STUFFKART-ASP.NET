@@ -1,8 +1,7 @@
 using Microsoft.Extensions.Logging;
+using StuffKartProject.Constant;
 using StuffKartProject.Models;
 using StuffKartProject.Services.Interfaces;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -21,7 +20,7 @@ namespace StuffKartProject.Services
 
     public async Task<bool> AddAdminUser(UserDetails userDetail)
     {
-      userDetail.isAdmin = 1;
+      userDetail.isAdmin = UserConstant.AdminUser;
       _context.UserDetails.Add(userDetail);
       _logger.LogInformation("Getting userDetails from User");
 

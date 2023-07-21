@@ -1,12 +1,11 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using StuffKartProject.Constant;
 using StuffKartProject.Models;
 using StuffKartProject.Services.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace StuffKartProject.Controllers
@@ -25,6 +24,7 @@ namespace StuffKartProject.Controllers
     }
 
     [HttpPost("PlaceOrder/{userId}")]
+    [Authorize]
     public async Task<IActionResult> AddOrdersDetail(string userId, List<OrderDetails> orderDetails)
     {
       try
@@ -34,11 +34,12 @@ namespace StuffKartProject.Controllers
         _logger.LogInformation("Successfully Saved User Detail");
         if (result == true)
         {
-
           return Ok();
         }
         else
+        {
           return BadRequest();
+        }
       }
       catch (Exception ex)
       {

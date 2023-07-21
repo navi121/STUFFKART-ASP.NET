@@ -1,10 +1,7 @@
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using StuffKartProject.Models;
+using StuffKartProject.Resources;
 using StuffKartProject.Services.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace StuffKartProject.Services
@@ -22,9 +19,9 @@ namespace StuffKartProject.Services
     public async Task<int> AddProductDetailService(UploadProducts addproduct)
     {
       _logger.LogInformation("Receiving Products in Service");
-      addproduct.Image = "n";
-      addproduct.Image1 = "n";
-      addproduct.Image2 = "n";
+      addproduct.Image = WebResource.TempImageString;
+      addproduct.Image1 = WebResource.TempImageString;
+      addproduct.Image2 = WebResource.TempImageString;
       addproduct.Quantity = 1;
       addproduct.Total = addproduct.Price;
       _context.Products.Add(addproduct);

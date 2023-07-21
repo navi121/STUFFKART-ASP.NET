@@ -1,12 +1,9 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using StuffKartProject.Constant;
 using StuffKartProject.Models;
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 using StuffKartProject.Services.Interfaces;
-using System.Collections.Generic;
 using Microsoft.Extensions.Logging;
 
 namespace StuffKartProject.Controllers

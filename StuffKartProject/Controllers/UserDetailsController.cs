@@ -22,16 +22,27 @@ namespace StuffKartProject.Controllers
     }
 
     [HttpPost]
+    [Authorize]
     public async Task<IActionResult> UserDetailsUpdate(UserDetails updateRequest)
     {
-      var updateStatus =await _userDetailService.UpdateUser(updateRequest);
-
-      if(updateStatus == false)
+      try
       {
-        return BadRequest();
+        var updateStatus = await _userDetailService.UpdateUser(updateRequest);
+
+        if (updateStatus == false)
+        {
+          return BadRequest();
+        }
+
+        return Ok();
       }
 
-      return Ok();
+      catch (Exception ex)
+      {
+        _logger.LogError("Received Exception Error while running");
+
+        return StatusCode(StatusCodes.Status500InternalServerError, new { ex.Message, Type = ex.GetType().ToString() });
+      }
     }
   }
 }
